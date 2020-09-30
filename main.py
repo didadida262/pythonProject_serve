@@ -25,9 +25,9 @@ def test():
     }
     return json.dumps(res, ensure_ascii=False)
 
-@app.route('/postUserInfo',methods= ["POST"])
+@app.route('/signIn',methods= ["POST"])
 def login():
-    username = request.values.get('username')
+    # username = request.values.get('username')
     # password = request.form['password']
     # data = request.get_data()
     # data = json.loads(data)
