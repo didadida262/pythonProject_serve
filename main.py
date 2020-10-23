@@ -3,7 +3,7 @@ from flask import Flask,jsonify,request,current_app
 from flask_cors import CORS,cross_origin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 import json
-
+from flask.ext.compress import Compress
 
 app = Flask(__name__)
 
@@ -25,6 +25,13 @@ def test():
     }
     return json.dumps(res, ensure_ascii=False)
 
+@app.route('/testdata',methods=["GET"])
+def gettestData():
+    f = open('test_data.txt','r')
+    content = f.read()
+    return jsonify({"content": content})
+
+
 @app.route('/signIn',methods= ["POST"])
 def login():
     # username = request.values.get('username')
@@ -44,5 +51,7 @@ def login():
     return json.dumps(res, ensure_ascii=False)
 
 
+# CORS(Compress(app))
 CORS(app)
+Compress(app)
 app.run()
