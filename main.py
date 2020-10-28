@@ -6,6 +6,7 @@ import json
 from flask.ext.compress import Compress
 
 app = Flask(__name__)
+f = open('data.txt', 'a+')
 
 @app.route('/')
 def jsonp():
@@ -27,8 +28,8 @@ def test():
 
 @app.route('/testdata',methods=["GET"])
 def gettestData():
-    f = open('test_data.txt','r')
-    content = f.read()
+    content = f.readlines()
+    print('content:',content)
     return jsonify({"content": content})
 
 
@@ -44,6 +45,8 @@ def login():
         "username": username,
         "password": password
     }
+    f.write('info:'.join(res))
+    f.write('\n')
 
     # s = Serializer(current_app.config["SECRET_KEY"],expires_in=3600)
     # token = s.dumps({"id":data['username']}).decode("ascii")
